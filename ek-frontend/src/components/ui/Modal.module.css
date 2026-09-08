@@ -1,0 +1,22 @@
+.backdrop {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(15, 23, 42, 0.45); backdrop-filter: blur(2px);
+  display: grid; place-items: center; padding: var(--sp-5);
+  animation: fade 160ms var(--ease);
+}
+@keyframes fade { from { opacity: 0; } }
+.panel {
+  background: var(--surface-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--r-2xl); box-shadow: var(--shadow-lg);
+  width: min(520px, 100%); max-height: calc(100vh - 64px);
+  display: flex; flex-direction: column; animation: pop 200ms var(--ease);
+}
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.98); } }
+.wide { width: min(760px, 100%); }
+.head { display: flex; align-items: flex-start; gap: var(--sp-3); padding: var(--sp-5) var(--sp-5) var(--sp-3); }
+.title { font-size: var(--fs-lg); font-weight: 650; }
+.sub { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 2px; }
+.close { margin-left: auto; color: var(--text-muted); width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-md); }
+.close:hover { background: var(--surface-hover); color: var(--text-primary); }
+.body { padding: 0 var(--sp-5) var(--sp-5); overflow-y: auto; }
+.foot { display: flex; justify-content: flex-end; gap: var(--sp-2); padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--border-subtle); }

@@ -1,0 +1,3 @@
+.spin { animation: rot 0.7s linear infinite; color: currentColor; }
+@keyframes rot { to { transform: rotate(360deg); } }
+.center { display: grid; place-items: center; padding: var(--sp-10); color: var(--text-muted); }

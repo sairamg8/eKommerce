@@ -1,0 +1,39 @@
+.wrap { display: grid; grid-template-columns: 232px 1fr; gap: var(--sp-6); align-items: start; }
+.rail { position: sticky; top: var(--sticky-storefront); display: grid; gap: var(--sp-5); }
+.group { display: grid; gap: var(--sp-2); }
+.gh { font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.opt {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  padding: 5px var(--sp-2); border-radius: var(--r-md);
+  font-size: var(--fs-md); color: var(--text-secondary); text-align: left; width: 100%;
+}
+.opt:hover { background: var(--surface-hover); color: var(--text-primary); }
+.optOn { background: var(--accent-subtle); color: var(--text-brand); font-weight: 550; }
+.pill { font-size: var(--fs-2xs); color: var(--text-muted); }
+.check { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-md); color: var(--text-secondary); cursor: pointer; padding: 3px 0; }
+.range { display: flex; align-items: center; gap: var(--sp-2); }
+
+.head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-4); }
+.title { display: grid; gap: 2px; }
+.count { font-size: var(--fs-sm); color: var(--text-muted); }
+.tools { display: flex; align-items: center; gap: var(--sp-2); }
+
+.chips { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-bottom: var(--sp-4); }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px var(--sp-2) 3px var(--sp-3); border-radius: var(--r-full);
+  background: var(--surface-sunken); border: 1px solid var(--border-subtle);
+  font-size: var(--fs-xs); color: var(--text-secondary);
+}
+.chip button { display: grid; place-items: center; color: var(--text-muted); }
+.chip button:hover { color: var(--danger-fg); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(212px, 1fr)); gap: var(--sp-4); }
+.skel { border: 1px solid var(--border-subtle); border-radius: var(--r-xl); overflow: hidden; }
+.pager { margin-top: var(--sp-5); background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--r-xl); }
+.pager > div { border-top: none; }
+
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: 1fr; }
+  .rail { position: static; }
+}

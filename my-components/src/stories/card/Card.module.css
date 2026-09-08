@@ -1,0 +1,16 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.card .card_item {
+    flex: 1;
+    background: color-mix(in srgb, var(--color-muted) 50%, transparent);
+    width: 350px;
+    max-width: 100%;
+    border-radius: 6px;
+    padding-inline: 0.8rem;
+    color: var(--color-text);
+}

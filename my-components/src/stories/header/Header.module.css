@@ -1,0 +1,46 @@
+.header-info {
+    background-color: #e2dcdc;
+    width: 1200px;
+    height: 60px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-inline: 16px;
+}
+
+.header-info nav  {
+    width: 100%;
+}
+
+.navbar-brand{
+    width: 120px;
+    aspect-ratio: 16/9;
+}
+
+.navbar-brand img {
+    width: auto;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+.header-info nav ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.navbarItem {
+    font-size: 15px;
+    color: #333333
+}
+
+.header-info nav ul .loginBtn {
+    margin-left: auto;
+}

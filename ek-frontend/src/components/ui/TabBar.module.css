@@ -1,0 +1,15 @@
+.tabs {
+  display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--sp-5);
+  overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: var(--sp-3) var(--sp-4); font-size: var(--fs-md); font-weight: 500;
+  color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text-primary); }
+.on { color: var(--text-brand); border-bottom-color: var(--accent); font-weight: 550; }
+.count { font-size: var(--fs-2xs); padding: 1px 6px; border-radius: var(--r-full); background: var(--surface-sunken); color: var(--text-secondary); }

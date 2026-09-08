@@ -1,0 +1,5 @@
+.row { display: inline-flex; align-items: center; gap: 3px; }
+.stars { display: inline-flex; gap: 1px; color: var(--amber-500); }
+.off { color: var(--border-default); }
+.value { font-size: var(--fs-xs); color: var(--text-secondary); font-weight: 500; margin-left: 3px; }
+.count { font-size: var(--fs-xs); color: var(--text-muted); }

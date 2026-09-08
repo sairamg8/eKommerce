@@ -1,0 +1,14 @@
+.wrap { display: grid; grid-template-columns: 216px 1fr; gap: var(--sp-6); align-items: start; }
+.rail { display: grid; gap: var(--sp-4); position: sticky; top: var(--sticky-storefront); }
+.who { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3); border: 1px solid var(--border-subtle); border-radius: var(--r-xl); background: var(--surface-card); }
+.name { font-weight: 600; font-size: var(--fs-md); }
+.mail { font-size: var(--fs-xs); color: var(--text-muted); }
+.nav { display: grid; gap: 2px; }
+.link {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md);
+  font-size: var(--fs-md); color: var(--text-secondary); font-weight: 500;
+}
+.link:hover { background: var(--surface-hover); color: var(--text-primary); }
+.on { background: var(--accent-subtle); color: var(--text-brand); }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } .rail { position: static; } .nav { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; } }

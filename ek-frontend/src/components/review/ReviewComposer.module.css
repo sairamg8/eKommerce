@@ -1,0 +1,16 @@
+.form { display: grid; gap: var(--sp-4); }
+.label { font-size: var(--fs-sm); font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
+.req { color: var(--danger-solid); }
+.starRow { display: flex; align-items: center; gap: var(--sp-3); }
+.stars { display: flex; gap: 4px; }
+.star { color: var(--border-default); transition: transform var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.star:hover { transform: scale(1.12); }
+.starOn { color: var(--amber-500); }
+.starLabel { font-size: var(--fs-md); font-weight: 600; color: var(--text-secondary); }
+.err { font-size: var(--fs-xs); color: var(--danger-fg); margin-top: 5px; }
+.note { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; padding: 12px 14px; background: var(--surface-sunken); border-radius: var(--r-lg); }
+
+.gallery { display: flex; gap: 6px; flex-wrap: wrap; margin-top: var(--sp-2); }
+.shot { position: relative; width: 62px; height: 62px; border-radius: var(--r-md); display: grid; place-items: center; border: 1px solid var(--border-subtle); cursor: pointer; }
+.shot:hover { border-color: var(--accent); }
+.play { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: rgba(0,0,0,0.3); border-radius: var(--r-md); }

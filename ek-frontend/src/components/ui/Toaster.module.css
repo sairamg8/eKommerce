@@ -1,0 +1,23 @@
+.wrap {
+  position: fixed; bottom: var(--sp-5); right: var(--sp-5); z-index: 200;
+  display: grid; gap: var(--sp-2); width: min(360px, calc(100vw - 32px));
+}
+.toast {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface-raised); color: var(--text-primary);
+  border: 1px solid var(--border-subtle); border-left: 3px solid var(--border-default);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-lg);
+  font-size: var(--fs-md); animation: slide 220ms var(--ease);
+}
+@keyframes slide { from { opacity: 0; transform: translateY(8px); } }
+.success { border-left-color: var(--success-solid); }
+.success .ico { color: var(--success-fg); }
+.error { border-left-color: var(--danger-solid); }
+.error .ico { color: var(--danger-fg); }
+.info { border-left-color: var(--info-solid); }
+.info .ico { color: var(--info-fg); }
+.ico { flex: none; margin-top: 2px; }
+.msg { flex: 1; line-height: var(--lh-snug); }
+.close { color: var(--text-muted); flex: none; }
+.close:hover { color: var(--text-primary); }
