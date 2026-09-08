@@ -1,0 +1,38 @@
+.card {
+  display: flex; flex-direction: column;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl); overflow: hidden;
+  transition: box-shadow var(--dur-med) var(--ease), transform var(--dur-med) var(--ease),
+              border-color var(--dur-med) var(--ease);
+}
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-default); }
+
+.media { position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; }
+.glyph { font-weight: 800; font-size: 30px; letter-spacing: -0.03em; opacity: 0.5; }
+.flags { position: absolute; top: var(--sp-2); left: var(--sp-2); display: flex; gap: 4px; flex-wrap: wrap; }
+.wish {
+  position: absolute; top: var(--sp-2); right: var(--sp-2);
+  width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: var(--r-full); background: var(--surface-card);
+  color: var(--text-muted); box-shadow: var(--shadow-sm); opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.card:hover .wish { opacity: 1; }
+.wish:hover { color: var(--danger-solid); }
+
+.body { padding: var(--sp-3) var(--sp-4) var(--sp-4); display: grid; gap: 5px; flex: 1; }
+.merchant { font-size: var(--fs-2xs); color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+.name {
+  font-size: var(--fs-md); font-weight: 550; line-height: var(--lh-snug); color: var(--text-primary);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.priceRow { display: flex; align-items: baseline; gap: var(--sp-2); margin-top: auto; padding-top: var(--sp-2); }
+.price { font-size: var(--fs-lg); font-weight: 650; letter-spacing: -0.02em; }
+.was { font-size: var(--fs-xs); color: var(--text-muted); text-decoration: line-through; }
+.off { font-size: var(--fs-xs); color: var(--success-fg); font-weight: 600; }
+.foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.stock { font-size: var(--fs-2xs); color: var(--text-muted); }
+.low { color: var(--warning-fg); font-weight: 600; }
+.out { color: var(--danger-fg); font-weight: 600; }
+.actions { padding: 0 var(--sp-4) var(--sp-4); }

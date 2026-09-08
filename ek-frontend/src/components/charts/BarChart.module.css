@@ -1,0 +1,8 @@
+.wrap { display: grid; gap: var(--sp-3); }
+.row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-3); align-items: center; }
+.top { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-sm); margin-bottom: 5px; }
+.name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.meta { color: var(--text-muted); font-size: var(--fs-xs); white-space: nowrap; }
+.track { height: 8px; border-radius: var(--r-full); background: var(--surface-sunken); overflow: hidden; }
+.fill { height: 100%; border-radius: var(--r-full); transition: width var(--dur-med) var(--ease); }
+.val { font-weight: 650; font-size: var(--fs-md); white-space: nowrap; }

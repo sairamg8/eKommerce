@@ -1,0 +1,86 @@
+.shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+.header {
+  position: sticky; top: 38px; z-index: 90;
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.inner {
+  max-width: var(--content-max); margin: 0 auto;
+  display: flex; align-items: center; gap: var(--sp-5);
+  padding: var(--sp-3) var(--sp-5); height: 62px;
+}
+.brand { display: flex; align-items: center; gap: var(--sp-2); font-weight: 700; font-size: var(--fs-lg); letter-spacing: -0.02em; }
+.mark {
+  width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--b-500), var(--b-700)); color: #fff;
+  font-size: 14px; font-weight: 800;
+}
+.search { flex: 1; max-width: 520px; }
+.nav { display: flex; align-items: center; gap: var(--sp-1); margin-left: auto; }
+.navLink {
+  display: flex; align-items: center; gap: 6px;
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md);
+  font-size: var(--fs-md); font-weight: 500; color: var(--text-secondary);
+}
+.navLink:hover { background: var(--surface-hover); color: var(--text-primary); }
+.cartBtn { position: relative; }
+.count {
+  position: absolute; top: 1px; right: 0;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  display: grid; place-items: center; border-radius: var(--r-full);
+  background: var(--danger-solid); color: #fff;
+  font-size: 10px; font-weight: 700; line-height: 1;
+}
+
+.catbar {
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+}
+.catinner {
+  max-width: var(--content-max); margin: 0 auto;
+  display: flex; align-items: center; gap: var(--sp-1);
+  padding: 0 var(--sp-5);
+  /* overflow-x:auto alone makes the Y axis compute to auto too, which shows a
+     sliver of vertical scrollbar. Pin Y to hidden and hide the X bar. */
+  overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.catinner::-webkit-scrollbar { display: none; }
+.cat {
+  padding: var(--sp-2) var(--sp-3); white-space: nowrap;
+  font-size: var(--fs-sm); font-weight: 500; color: var(--text-secondary);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.cat:hover { color: var(--text-primary); }
+.catOn { color: var(--text-brand); border-bottom-color: var(--accent); }
+
+.main { flex: 1; max-width: var(--content-max); width: 100%; margin: 0 auto; padding: var(--sp-6) var(--sp-5) var(--sp-16); }
+
+.footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface-card); padding: var(--sp-8) var(--sp-5);
+}
+.finner {
+  max-width: var(--content-max); margin: 0 auto;
+  display: flex; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap;
+  font-size: var(--fs-sm); color: var(--text-muted);
+}
+.fcol { display: grid; gap: var(--sp-2); }
+.fh { font-weight: 600; color: var(--text-secondary); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; }
+
+@media (max-width: 860px) {
+  .search { display: none; }
+  .inner { gap: var(--sp-3); }
+}
+
+/* Phones: icon-only nav, so the header never overflows the viewport. */
+@media (max-width: 620px) {
+  .inner { padding: var(--sp-2) var(--sp-3); height: 54px; gap: var(--sp-1); }
+  .brand { font-size: var(--fs-md); }
+  .navLabel { display: none; }
+  .navLink { padding: var(--sp-2); }
+  .catinner { padding: 0 var(--sp-3); }
+  .main { padding: var(--sp-4) var(--sp-3) var(--sp-12); }
+  .footer { padding: var(--sp-6) var(--sp-4); }
+}

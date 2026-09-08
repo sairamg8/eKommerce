@@ -1,0 +1,16 @@
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-xs);
+}
+.pad { padding: var(--sp-5); }
+.head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.title { font-size: var(--fs-md); font-weight: 600; }
+.sub { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; }
+.body { padding: var(--sp-5); }
+.bodyFlush { padding: 0; }

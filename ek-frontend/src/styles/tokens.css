@@ -1,0 +1,185 @@
+/* ─────────────────────────────────────────────────────────────
+   Design tokens. One neutral ramp, one brand hue, semantic
+   aliases on top. Components reference ONLY the semantic layer,
+   never a raw ramp step — that is what makes theming possible.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Neutral ramp */
+  --n-0: #ffffff;
+  --n-25: #fcfcfd;
+  --n-50: #f8fafc;
+  --n-100: #f1f5f9;
+  --n-200: #e2e8f0;
+  --n-300: #cbd5e1;
+  --n-400: #94a3b8;
+  --n-500: #64748b;
+  --n-600: #475569;
+  --n-700: #334155;
+  --n-800: #1e293b;
+  --n-900: #0f172a;
+  --n-950: #020617;
+
+  /* Brand ramp */
+  --b-50: #eef2ff;
+  --b-100: #e0e7ff;
+  --b-200: #c7d2fe;
+  --b-300: #a5b4fc;
+  --b-400: #818cf8;
+  --b-500: #6366f1;
+  --b-600: #4f46e5;
+  --b-700: #4338ca;
+  --b-800: #3730a3;
+  --b-900: #312e81;
+
+  /* Status hues */
+  --green-50: #ecfdf5;  --green-200: #a7f3d0; --green-500: #10b981; --green-700: #047857;
+  --amber-50: #fffbeb;  --amber-200: #fde68a; --amber-500: #f59e0b; --amber-700: #b45309;
+  --red-50:   #fef2f2;  --red-200:   #fecaca; --red-500:   #ef4444; --red-700:   #b91c1c;
+  --sky-50:   #f0f9ff;  --sky-200:   #bae6fd; --sky-500:   #0ea5e9; --sky-700:   #0369a1;
+  --violet-500: #8b5cf6;
+  --pink-500: #ec4899;
+  --teal-500: #14b8a6;
+
+  /* ── Semantic: surfaces ── */
+  --surface-page: #f6f7f9;
+  --surface-card: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: #eef1f5;
+  --surface-hover: #f1f4f8;
+  --surface-active: #e6eaf0;
+  --surface-inverse: var(--n-900);
+  /* Always-dark prototype chrome. Must NOT flip with the theme, or the bar
+     becomes near-white with light text. */
+  --chrome-bg: #0f172a;
+  --chrome-fg: #cbd5e1;
+  --chrome-fg-dim: #94a3b8;
+  --chrome-hover: rgba(255, 255, 255, 0.09);
+
+  /* ── Semantic: text ── */
+  --text-primary: #1a2333;
+  --text-secondary: #55627a;
+  --text-muted: var(--n-500);
+  --text-disabled: var(--n-400);
+  --text-inverse: var(--n-0);
+  --text-brand: var(--b-600);
+
+  /* ── Semantic: borders ── */
+  --border-subtle: #e6eaf1;
+  --border-default: #d3dae5;
+  --border-strong: var(--n-400);
+  --border-brand: var(--b-500);
+
+  /* ── Semantic: interactive ── */
+  --accent: var(--b-600);
+  --accent-hover: var(--b-700);
+  --accent-subtle: var(--b-50);
+  --accent-border: var(--b-200);
+  --focus-ring: var(--b-500);
+
+  /* ── Semantic: status ── */
+  --success-fg: var(--green-700); --success-bg: var(--green-50); --success-border: var(--green-200); --success-solid: var(--green-500);
+  --warning-fg: var(--amber-700); --warning-bg: var(--amber-50); --warning-border: var(--amber-200); --warning-solid: var(--amber-500);
+  --danger-fg:  var(--red-700);   --danger-bg:  var(--red-50);   --danger-border:  var(--red-200);   --danger-solid:  var(--red-500);
+  --info-fg:    var(--sky-700);   --info-bg:    var(--sky-50);   --info-border:    var(--sky-200);   --info-solid:    var(--sky-500);
+
+  /* ── Chart series (categorical, in application order) ── */
+  --chart-1: var(--b-500);
+  --chart-2: var(--teal-500);
+  --chart-3: var(--amber-500);
+  --chart-4: var(--violet-500);
+  --chart-5: var(--sky-500);
+  --chart-6: var(--pink-500);
+  --chart-grid: var(--n-200);
+  --chart-axis: var(--n-400);
+
+  /* ── Type scale ── */
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --fs-2xs: 0.6875rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 0.875rem;
+  --fs-base: 0.9375rem;
+  --fs-lg: 1.0625rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.875rem;
+  --fs-4xl: 2.5rem;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.6;
+
+  /* ── Space (4px base) ── */
+  --sp-1: 0.25rem; --sp-2: 0.5rem;  --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-5: 1.25rem; --sp-6: 1.5rem;  --sp-8: 2rem;    --sp-10: 2.5rem;
+  --sp-12: 3rem;   --sp-16: 4rem;   --sp-20: 5rem;
+
+  /* ── Radii ── */
+  --r-sm: 4px; --r-md: 6px; --r-lg: 8px; --r-xl: 12px; --r-2xl: 16px; --r-full: 999px;
+
+  /* ── Elevation ── */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12), 0 4px 8px rgba(15, 23, 42, 0.04);
+
+  /* ── Motion ── */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+
+  /* ── Layout ── */
+  --sidebar-w: 236px;
+  --topbar-h: 56px;
+  /* Sticky offsets. Storefront = persona bar (38) + header (~102) + gap.
+     Console panes scroll inside .content, so their offset is ~0. */
+  --sticky-storefront: 148px;
+  --sticky-console: var(--sp-1);
+  --content-max: 1400px;
+}
+
+:root[data-theme="dark"] {
+  --surface-page: #12161f;
+  --surface-card: #1a1f2b;
+  --surface-raised: #212736;
+  --surface-sunken: #0e1218;
+  --surface-hover: #252c3b;
+  --surface-active: #2f3749;
+  --surface-inverse: var(--n-100);
+  --chrome-bg: #080c14;
+  --chrome-fg: #cbd5e1;
+  --chrome-fg-dim: #94a3b8;
+  --chrome-hover: rgba(255, 255, 255, 0.11);
+
+  --text-primary: #e8ecf3;
+  --text-secondary: #9aa7bd;
+  --text-muted: var(--n-500);
+  --text-disabled: var(--n-600);
+  --text-inverse: var(--n-950);
+  --text-brand: var(--b-400);
+
+  --border-subtle: #29313f;
+  --border-default: #3a4354;
+  --border-strong: var(--n-600);
+
+  --accent: var(--b-500);
+  --accent-hover: var(--b-400);
+  --accent-subtle: rgba(99, 102, 241, 0.14);
+  --accent-border: rgba(99, 102, 241, 0.32);
+
+  --success-fg: #6ee7b7; --success-bg: rgba(16, 185, 129, 0.12); --success-border: rgba(16, 185, 129, 0.3);
+  --warning-fg: #fcd34d; --warning-bg: rgba(245, 158, 11, 0.12); --warning-border: rgba(245, 158, 11, 0.3);
+  --danger-fg:  #fca5a5; --danger-bg:  rgba(239, 68, 68, 0.12);  --danger-border:  rgba(239, 68, 68, 0.3);
+  --info-fg:    #7dd3fc; --info-bg:    rgba(14, 165, 233, 0.12); --info-border:    rgba(14, 165, 233, 0.3);
+
+  --chart-grid: #29313f;
+  --chart-axis: var(--n-600);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+}

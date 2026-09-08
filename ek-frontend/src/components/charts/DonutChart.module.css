@@ -1,0 +1,13 @@
+.wrap { display: flex; align-items: center; gap: var(--sp-6); flex-wrap: wrap; }
+.ring { position: relative; flex: none; }
+.center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+.cv { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.cl { font-size: var(--fs-2xs); color: var(--text-muted); margin-top: 3px; }
+.legend { display: grid; gap: var(--sp-2); flex: 1; min-width: 160px; }
+.item { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); }
+.swatch { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.label { flex: 1; color: var(--text-secondary); text-transform: capitalize; }
+.value { font-weight: 650; }
+.pct { color: var(--text-muted); font-size: var(--fs-xs); width: 38px; text-align: right; }
+.seg { transition: opacity var(--dur-fast) var(--ease); cursor: pointer; }
+.dim { opacity: 0.35; }

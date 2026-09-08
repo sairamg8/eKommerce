@@ -1,0 +1,17 @@
+.tabs { display: flex; gap: 2px; background: var(--surface-sunken); padding: 3px; border-radius: var(--r-lg); width: fit-content; margin-bottom: var(--sp-4); }
+.tab { padding: 5px var(--sp-4); border-radius: var(--r-md); font-size: var(--fs-sm); font-weight: 500; color: var(--text-secondary); }
+.tabOn { background: var(--surface-card); color: var(--text-primary); box-shadow: var(--shadow-xs); }
+.row { display: flex; gap: var(--sp-4); padding: var(--sp-4); }
+.row + .row { border-top: 1px solid var(--border-subtle); }
+.body { flex: 1; display: grid; gap: 5px; }
+.name { font-weight: 600; font-size: var(--fs-md); }
+.name:hover { color: var(--text-brand); }
+.meta { font-size: var(--fs-xs); color: var(--text-muted); }
+.title { font-weight: 600; font-size: var(--fs-md); margin-top: 4px; }
+.text { font-size: var(--fs-md); color: var(--text-secondary); line-height: var(--lh-normal); }
+.foot { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-2); }
+.stars { display: flex; gap: 3px; }
+.star { color: var(--border-default); }
+.starOn { color: var(--amber-500); }
+.form { display: grid; gap: var(--sp-3); }
+.pickRow { display: flex; align-items: center; gap: var(--sp-3); }

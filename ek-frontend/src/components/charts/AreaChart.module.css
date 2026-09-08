@@ -1,0 +1,14 @@
+.wrap { position: relative; width: 100%; }
+.svg { display: block; width: 100%; overflow: visible; }
+.grid { stroke: var(--chart-grid); stroke-width: 1; }
+.axis { fill: var(--chart-axis); font-size: 10px; font-family: var(--font-sans); }
+.hit { fill: transparent; cursor: crosshair; }
+.cursor { stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+.tip {
+  position: absolute; pointer-events: none; z-index: 5;
+  background: var(--surface-inverse); color: var(--text-inverse);
+  padding: 6px 9px; border-radius: var(--r-md); font-size: var(--fs-xs);
+  box-shadow: var(--shadow-lg); white-space: nowrap; transform: translate(-50%, -120%);
+}
+.tipL { opacity: 0.7; display: block; font-size: var(--fs-2xs); }
+.tipV { font-weight: 650; }

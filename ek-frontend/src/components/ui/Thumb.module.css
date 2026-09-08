@@ -1,0 +1,7 @@
+.thumb {
+  position: relative; display: grid; place-items: center;
+  border-radius: var(--r-lg); overflow: hidden; flex: none;
+  background: var(--surface-sunken); border: 1px solid var(--border-subtle);
+}
+.glyph { opacity: 0.55; }
+.mono { font-weight: 700; letter-spacing: -0.02em; opacity: 0.75; }

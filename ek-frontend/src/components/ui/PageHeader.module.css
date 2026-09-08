@@ -1,0 +1,4 @@
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-5); }
+.title { font-size: var(--fs-2xl); letter-spacing: -0.02em; }
+.sub { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 3px; }
+.actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
