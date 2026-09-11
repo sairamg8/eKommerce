@@ -1,12 +1,31 @@
 import { z } from "zod";
+import "dotenv/config";
 
 const env_schema = z.object({
   node_env: z.enum(["development", "production"]),
+  app_port: z.coerce.number().int().positive().default(3000),
+  db_user: z.string({ error: "Database user required" }),
   db_port: z.coerce.number().int().positive().default(5432),
-  app_port: z.coerce.number().int().positive().default,
-
   db_host: z.string({ error: "Database name required" }),
-  db_connection_string: z.string({
-    error: "Database connection string required incase of no host",
+  db_name: z.string({
+    error: "Database name must be required",
+  }),
+  db_password: z.string({
+    error: "Password must be required",
   }),
 });
+
+const result = z.safeParse(env_schema, process.env);
+
+if (!result.success) {
+  console.error(
+    result.error.issues.map((issue) => ({
+      variable: issue.path.join("."),
+      message: issue.message,
+    })),
+  );
+
+  process.exit(1);
+}
+
+export const env = result.data;

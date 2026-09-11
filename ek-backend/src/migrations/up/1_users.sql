@@ -8,7 +8,7 @@ create table if not exists auth.users (
     email text not null unique,
     password_hash text not null,
     preferences jsonb default '{}'::jsonb
-)
+);
 
 create index idx_auth_users_first_name on auth.users (first_name);
 

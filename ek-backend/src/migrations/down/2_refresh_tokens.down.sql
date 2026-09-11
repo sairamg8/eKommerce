@@ -1,0 +1,1 @@
+drop table if exists auth.refresh_tokens
