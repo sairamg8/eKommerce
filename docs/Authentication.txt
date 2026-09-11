@@ -1,0 +1,6 @@
+Authentication:
+    1. Login -> Working on it
+    2. Signup
+    3. Reset password
+    4. Forgot password
+    5. Refresh Authentication Token

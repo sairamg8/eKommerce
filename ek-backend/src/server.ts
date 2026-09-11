@@ -1,10 +1,11 @@
 import e from "express";
-import "dotenv/config";
 import Health from "./routes/health";
-
-const port = process.env.app_port;
+import "./config";
+import { env } from "./config/env";
 
 const server = e();
 server.use("/health", Health);
 
-server.listen(port, () => console.log(`Server started on ${port}`));
+server.listen(env.app_port, () =>
+  console.log(`Server started on ${env.app_port}`),
+);
