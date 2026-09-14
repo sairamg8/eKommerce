@@ -10,6 +10,9 @@ interface migration {
   created_at: Date;
 }
 
+/**
+ * File System
+ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -27,11 +30,14 @@ async function get_down_sql_files() {
   return files.sort((a, b) => b.localeCompare(a));
 }
 
-function replace_up_or_down_filename(name: string, down?: boolean) {
-  if (name.endsWith(".sql") && down) {
-    return name.replace(".sql", ".down.sql");
+function replace_to_up_filename(name: string) {
+  if (name.endsWith(".down.sql")) {
+    return name.replace(".down.sql", ".sql");
   }
+  throw new Error(`Invalid migration file ${name}`);
+}
 
+function replace_to_down_filename(name: string, down?: boolean) {
   if (name.endsWith(".down.sql") && !down) {
     return name.replace(".down.sql", ".sql");
   }
@@ -43,6 +49,10 @@ async function read_file(folder: string, filename: string) {
   const data = await readFile(path.join(folder, filename), "utf-8");
   return data;
 }
+
+/**
+ *  Migration
+ */
 
 async function ensure_migration_table_exists() {
   const client = await pool.connect();
@@ -164,9 +174,7 @@ async function undo_all() {
   const files_to_undo = [];
 
   for (const file of files) {
-    const is_migrated = await check_file_migrated(
-      replace_up_or_down_filename(file),
-    );
+    const is_migrated = await check_file_migrated(replace_to_up_filename(file));
     if (is_migrated) files_to_undo.push(file);
   }
 
@@ -182,7 +190,7 @@ async function undo_all() {
 
   for (const file of files_to_undo) {
     const data = await read_file(down_folder, file);
-    await undo_one(data, replace_up_or_down_filename(file));
+    await undo_one(data, replace_to_down_filename(file));
   }
 }
 
@@ -201,7 +209,7 @@ async function migrate() {
     console.log(`Trigger : ${args} \n`);
     await migrate_all();
   } else if (args.startsWith("migrate:") && args.endsWith(".sql")) {
-    console.log(`Trigger : ${args} \n`);
+    console.log(`Trigger Migration : ${args} \n`);
     const migrate_file = args.split(":")[1];
     if (!(await check_file_migrated(migrate_file))) {
       const data = await read_file(sql_folder, migrate_file);
@@ -209,11 +217,11 @@ async function migrate() {
     } else {
       console.log(`${migrate_file} already migrated`);
     }
-  } else if (args.startsWith("migrate:undo:") && args.endsWith(".down.sql")) {
-    console.log(`Trigger : ${args} \n`);
+  } else if (args.startsWith("undo:") && args.endsWith(".down.sql")) {
+    console.log(`Trigger Undo : ${args} \n`);
     const migrate_file = args.split(":")[1];
     const data = await read_file(down_folder, migrate_file);
-    await undo_one(data, replace_up_or_down_filename(migrate_file));
+    await undo_one(data, replace_to_down_filename(migrate_file));
   } else if (args === "migrate:undo:all") {
     console.log(`Trigger : ${args} \n`);
     await undo_all();
