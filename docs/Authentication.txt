@@ -1,6 +1,6 @@
 Authentication:
-    1. Login -> Working on it
-    2. Signup
+    1. Login -> Completed
+    2. Signup -> Completed
     3. Reset password
     4. Forgot password
-    5. Refresh Authentication Token
+    5. Refresh Authentication Token -> Working on it (see refresh_token_guide.md)

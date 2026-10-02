@@ -1,9 +1,15 @@
 import { randomUUID } from "node:crypto";
-import { add_user_refresh_tokens } from "@/repositories/refresh_token";
+import {
+  add_user_refresh_tokens,
+  get_refresh_token_by_id,
+  revoke_all_refresh_tokens,
+  revoke_token,
+} from "@/repositories/refresh_token";
 import { create_user, get_user } from "@/repositories/user/user.repo";
 import { Login_user, User } from "@/types/user";
-import { decrypt_hash, gen_token, hash_secret } from "@/utils";
+import { decrypt_hash, gen_token, hash_secret, verify_token } from "@/utils";
 import { RequestHandler } from "express";
+import { Refresh_Token, RefreshTokenPayload } from "@/types";
 
 export const Signup: RequestHandler = async (req, res, next) => {
   const { body } = req as {
@@ -82,5 +88,51 @@ export const Login: RequestHandler = async (req, res) => {
     user: rest,
     access_token,
     refresh_token,
+  });
+};
+
+export const Logout: RequestHandler = async (req, res, next) => {
+  const { body } = req as Refresh_Token;
+
+  const { refresh_token } = body;
+
+  const decode = verify_token<RefreshTokenPayload>(refresh_token, "refresh");
+
+  if (!decode.valid) {
+    return res.status(401).json({
+      msg: "Invalid/Expired token",
+    });
+  }
+
+  const { id } = decode.payload;
+
+  const { rowCount, rows } = await get_refresh_token_by_id(id);
+
+  if (!rowCount) {
+    return res.status(401).json({
+      msg: "Invalid/Expired token",
+    });
+  }
+
+  const token_info = rows[0];
+
+  const check_hash = await decrypt_hash(token_info.token_hash, refresh_token);
+
+  if (!check_hash) {
+    return res.status(401).json({
+      msg: "InValid/Expired token",
+    });
+  }
+
+  if (token_info.revoked_at) {
+    return res.status(401).json({
+      msg: "Token reuse detected",
+    });
+  }
+
+  await revoke_token(id);
+
+  return res.status(200).json({
+    msg: "User logged out successfully",
   });
 };
