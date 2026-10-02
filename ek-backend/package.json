@@ -7,15 +7,19 @@
     "migrate": "tsx ./src/migrations/index.ts"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9",
     "@types/node": "^26.4.1",
     "@types/pg": "^8.23.1",
     "tsup": "^8.5.1",
     "tsx": "^4.23.13"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.23.0",
     "zod": "^4.5.4"
   }

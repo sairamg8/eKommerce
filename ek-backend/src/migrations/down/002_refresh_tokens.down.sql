@@ -1,1 +1,1 @@
-drop table if exists auth.refresh_tokens
+drop table if exists app.refresh_tokens cascade
