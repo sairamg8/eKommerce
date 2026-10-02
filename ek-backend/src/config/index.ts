@@ -1,6 +1,14 @@
 import { Pool } from "pg";
 import { env } from "./env";
 
+interface ErrorT extends Error {
+  code?: string;
+}
+
+// function isPostgresError(err: Error) {
+//   return typeof err === "object" && "code" in err;
+// }
+
 export const pool = new Pool({
   host: env.db_host,
   port: env.db_port || 5432,
@@ -11,6 +19,8 @@ export const pool = new Pool({
 
 pool.connect((err, client, release) => {
   if (err) {
+    // if (isPostgresError(err)) {
+    // }
     return console.error(`Error acquiring client`, client);
   }
 

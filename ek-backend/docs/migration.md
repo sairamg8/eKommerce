@@ -1,0 +1,3 @@
+## Migration Usage
+
+yarn migrate

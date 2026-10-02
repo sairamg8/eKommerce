@@ -13,6 +13,14 @@ const env_schema = z.object({
   db_password: z.string({
     error: "Password must be required",
   }),
+
+  access_secret: z.string({
+    error: "Access token secret required",
+  }),
+
+  refresh_secret: z.string({
+    error: "Refresh token secret required",
+  }),
 });
 
 const result = z.safeParse(env_schema, process.env);

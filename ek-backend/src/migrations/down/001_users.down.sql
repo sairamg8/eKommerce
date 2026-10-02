@@ -1,1 +1,1 @@
-drop table if exists auth.users cascade;
+drop table if exists app.users cascade;
