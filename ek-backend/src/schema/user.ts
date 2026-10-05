@@ -34,3 +34,38 @@ export const refresh_token_schema = z.object({
     }),
   }),
 });
+
+export const forgot_password_schema = z.object({
+  body: z.object({
+    email: z.string({
+      error: "Email cannot be empty",
+    }),
+  }),
+});
+
+export const forgot_password = z.object({
+  id: z.string({
+    error: "ID Must be required",
+  }),
+  user_id: z.string({
+    error: "User id must be required",
+  }),
+  token_hash: z.string({
+    error: "Token hash must be required",
+  }),
+  expiry_time: z.iso.datetime({
+    error: "Expiry time must be required",
+  }),
+  created_at: z.iso.datetime().optional(),
+});
+
+export const password_reset = z.object({
+  query: z.object({
+    token: z.string({ error: "Token string must be required" }),
+  }),
+  body: z.object({
+    password: z
+      .string({ error: "Password required" })
+      .min(6, { error: "At least 6 characters of password required" }),
+  }),
+});

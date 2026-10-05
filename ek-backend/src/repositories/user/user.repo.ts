@@ -1,4 +1,4 @@
-import { UserRes } from "@/types/user";
+import { User, UserRes } from "@/types/user";
 import { query } from "@/utils";
 
 type NewUser = Omit<UserRes, "id" | "created_at" | "deleted_at" | "updated_at">;
@@ -27,7 +27,7 @@ const create_user = async (data: Partial<UserRes>) => {
       : value;
   });
 
-  const sql = await query(
+  const sql = await query<UserRes>(
     `insert into app.users (${columns})
   values (${placeholders})
   returning *`,
@@ -46,4 +46,26 @@ const get_user = async (email: string) => {
   return q;
 };
 
-export { create_user, get_user };
+const update_user = async (data: Partial<UserRes>, id: string) => {
+  const valid_entries = Object.entries(data).filter(
+    ([key, value]) =>
+      allowed_columns.has(key as keyof NewUser) && value !== undefined,
+  );
+
+  const values = valid_entries.map(([_, value]) => value);
+
+  const placeholder = valid_entries
+    .map(([key], i) => `${key}=$${i + 1}`)
+    .join(", ");
+
+  const sql = await query(
+    `update app.users set ${placeholder}
+    where id = $${valid_entries.length + 1}
+    returning id, email, first_name, last_name, preferences`,
+    [...values, id],
+  );
+
+  return sql;
+};
+
+export { create_user, get_user, update_user };

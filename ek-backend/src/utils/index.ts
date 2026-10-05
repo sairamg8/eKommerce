@@ -3,6 +3,7 @@ import { env } from "@/config/env";
 import { RepoReturn, Verification_Token } from "@/types";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import { createHash, hash } from "node:crypto";
 
 type SecretType = "access" | "refresh";
 
@@ -94,4 +95,16 @@ export const verify_token = <T>(
       error: error.message,
     };
   }
+};
+
+export const hash_token = (text: string) =>
+  createHash("sha256").update(text).digest("hex");
+
+export const verify_hash = (text: string) => {
+  const hash = createHash("sha256");
+  hash.update(text);
+
+  const digest = hash.digest("hex");
+
+  return digest;
 };
