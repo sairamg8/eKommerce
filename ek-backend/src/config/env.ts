@@ -21,6 +21,17 @@ const env_schema = z.object({
   refresh_secret: z.string({
     error: "Refresh token secret required",
   }),
+  reset_secret: z.string({
+    error: "Reset token secret required",
+  }),
+
+  smtp_host: z.string({ error: "SMTP configuration is required smtp_host" }),
+  smtp_port: z.string({ error: "SMTP configuration is required smtp_port" }),
+  smtp_user: z.string({ error: "SMTP configuration is required smtp_user" }),
+  smtp_password: z.string({
+    error: "SMTP configuration is required smtp_password",
+  }),
+  smtp_from: z.string({ error: "SMTP configuration is required smtp_from" }),
 });
 
 const result = z.safeParse(env_schema, process.env);
