@@ -8,18 +8,33 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   block?: boolean;
   iconOnly?: boolean;
   children?: ReactNode;
+  loading?: boolean;
 };
 
 export function Button({
-  variant = "primary", size = "md", block, iconOnly,
-  className, children, ...rest
+  variant = "primary",
+  size = "md",
+  block,
+  iconOnly,
+  className,
+  children,
+  loading,
+  ...rest
 }: Props) {
   return (
     <button
-      className={cn(s.btn, s[variant], s[size], block && s.block, iconOnly && s.iconOnly, className)}
+      disabled={loading}
+      className={cn(
+        s.btn,
+        s[variant],
+        s[size],
+        block && s.block,
+        iconOnly && s.iconOnly,
+        className,
+      )}
       {...rest}
     >
-      {children}
+      {loading ? "Please wait..." : children}
     </button>
   );
 }

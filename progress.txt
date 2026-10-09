@@ -1,28 +1,29 @@
 - Starting with backend
 
-Since ecommerce platforms means a lot of products i want to handpick categories what i need to build if possible i will try to create a saas product out of it in that direction i need suggestion should we pick by categories or create a backend that can work any of kind of categories ?
-
-- Lets jump of categories or auth will pick suggest me which one will start first ?
-
-- Auth
-
-Fields selection
-    - first name
-    - last name
-    - email
-    - password
-    - confirm password ( i would like to verify on the backend as well)
-    - preferences ( jsonb )
-    - role customer (end user) | merchant | admin
-    - rest of fields automatic generation by db such creation dates
-
-Node js express and typescript tech stack and postgresql
-
-
-Setup Instructions:
-
-- Typescript
-- Express JS
-- PG
-- Squelize or Prisma or raw queries ( plan to go for now later i can upgrade )
-- And need solid setup with ts and usage of path alias does vite can used here or manual way is better ?
+Modules
+    1. Authentication
+        - Signup -> Completed
+        - Signin -> Completed
+        - Reset password -> Completed
+        - Forgot password -> Completed
+        - Refresh token -> Completed
+    
+    2. Frontend Integration of Authentication -> In Progress
+        - Using redux toolkit for state management and rtk query for API triggering.
+        
+    3. Categories
+        - Create
+            - Single
+            - Bulk
+        - Read
+            - Filter
+            - Sorting
+        - Update
+            - Single
+            - Bulk
+        - Delete
+            - Single
+            - bulk
+        - Storing images
+            - AWS
+            - Cloudinary
