@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { auth_api } from "./auth_api";
 import type { UserRes } from "../../../types/User";
+import { useLocalStorage } from "../../../lib/useLocalStorage";
 
 interface InitialState {
   is_logged_in: boolean;
@@ -38,10 +39,16 @@ const auth_slice = createSlice({
     builder.addMatcher(
       auth_api.endpoints.login.matchFulfilled,
       (state, action: PayloadAction<UserRes>) => {
+        const { insert } = useLocalStorage;
+        const { access_token, refresh_token } = action.payload;
+
         state.is_loading = false;
         state.is_logged_in = true;
         state.token = action.payload.access_token;
         state.refresh_token = action.payload.refresh_token;
+
+        insert("refresh_token", refresh_token);
+        insert("access_token", access_token);
       },
     );
     builder.addMatcher(auth_api.endpoints.login.matchRejected, (state) => {

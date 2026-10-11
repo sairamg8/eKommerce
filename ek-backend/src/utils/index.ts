@@ -3,7 +3,7 @@ import { env } from "@/config/env";
 import { RepoReturn, Verification_Token } from "@/types";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
-import { createHash, hash } from "node:crypto";
+import { createHash } from "node:crypto";
 
 type SecretType = "access" | "refresh";
 

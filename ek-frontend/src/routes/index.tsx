@@ -46,6 +46,9 @@ import { AdminSettingsPage } from "./admin/SettingsPage";
 import { LoginPage } from "./auth/LoginPage";
 import { RegisterPage } from "./auth/RegisterPage";
 import { MerchantSignupPage } from "./auth/MerchantSignupPage";
+import { ForgotPasswordPage } from "./auth/ForgotPasswordPage";
+import { ResetPasswordPage } from "./auth/ResetPasswordPage";
+import { NotFoundPage } from "./storefront/NotFoundPage";
 
 export function AppRoutes() {
   return (
@@ -89,6 +92,8 @@ export function AppRoutes() {
 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/user/password-reset" element={<ResetPasswordPage />} />
       <Route path="/sell" element={<MerchantSignupPage />} />
 
       <Route path="/merchant" element={<MerchantLayout />}>
@@ -107,7 +112,7 @@ export function AppRoutes() {
         <Route path="shipments" element={<DeliveryShipmentsPage />} />
         <Route path="performance" element={<DeliveryPerformancePage />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

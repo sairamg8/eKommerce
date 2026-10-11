@@ -8,6 +8,7 @@ import {
 import {
   create_user,
   get_user,
+  get_user_by_email,
   update_user,
 } from "@/repositories/user/user.repo";
 import {
@@ -40,6 +41,14 @@ export const Signup: RequestHandler = async (req, res, next) => {
     body: User;
   };
 
+  const is_user_existed = await get_user_by_email(body.email);
+
+  if (is_user_existed) {
+    return res.status(400).json({
+      message: "User email already existed in system",
+    });
+  }
+
   const password = await hash_secret(body.password);
 
   const data = {
@@ -54,7 +63,7 @@ export const Signup: RequestHandler = async (req, res, next) => {
   const { password_hash, deleted_at, ...rest } = rows[0];
 
   return res.json({
-    msg: "OK",
+    message: "OK",
     data: rest,
   });
 };
@@ -70,7 +79,7 @@ export const Login: RequestHandler = async (req, res) => {
 
   if (!rowCount) {
     return res.status(401).json({
-      msg: "User email/password is incorrect",
+      message: "User email/password is incorrect",
     });
   }
 
@@ -78,14 +87,16 @@ export const Login: RequestHandler = async (req, res) => {
   const { deleted_at, password_hash, id, ...rest } = user;
 
   if (deleted_at) {
-    return res.status(401).json({ msg: "Account not found or deactivated" });
+    return res
+      .status(401)
+      .json({ message: "Account not found or deactivated" });
   }
 
   const is_valid_password = await decrypt_hash(password_hash, password);
 
   if (!is_valid_password) {
     return res.status(401).json({
-      msg: "User email/password is incorrect",
+      message: "User email/password is incorrect",
     });
   }
 
@@ -130,7 +141,7 @@ export const Logout: RequestHandler = async (req, res, next) => {
 
   if (!decode.valid) {
     return res.status(401).json({
-      msg: "Invalid/Expired token",
+      message: "Invalid/Expired token",
     });
   }
 
@@ -140,7 +151,7 @@ export const Logout: RequestHandler = async (req, res, next) => {
 
   if (!rowCount) {
     return res.status(401).json({
-      msg: "Invalid/Expired token",
+      message: "Invalid/Expired token",
     });
   }
 
@@ -150,20 +161,20 @@ export const Logout: RequestHandler = async (req, res, next) => {
 
   if (!check_hash) {
     return res.status(401).json({
-      msg: "InValid/Expired token",
+      message: "InValid/Expired token",
     });
   }
 
   if (token_info.revoked_at) {
     return res.status(401).json({
-      msg: "Token reuse detected",
+      message: "Token reuse detected",
     });
   }
 
   await revoke_token(id);
 
   return res.status(200).json({
-    msg: "User logged out successfully",
+    message: "User logged out successfully",
   });
 };
 
@@ -184,7 +195,7 @@ export const ForgotPassword: RequestHandler = async (req, res) => {
 
   if (rowCount === 0) {
     return res.status(200).json({
-      msg: "A reset password link will be shared if user email exists.",
+      message: "A reset password link will be shared if user email exists.",
     });
   }
 
@@ -222,7 +233,7 @@ export const ForgotPassword: RequestHandler = async (req, res) => {
   });
 
   return res.json({
-    msg: "A reset password link will be shared if user email exists.",
+    message: "A reset password link will be shared if user email exists.",
     reset_token: `${part_1_token}_${part_2_token}`,
   });
 };
@@ -235,7 +246,7 @@ export const ResetPassword: RequestHandler = async (req, res) => {
 
   if (!token) {
     return res.status(400).json({
-      msg: "Invalid link.",
+      message: "Invalid link.",
     });
   }
 
@@ -245,15 +256,16 @@ export const ResetPassword: RequestHandler = async (req, res) => {
 
   if (!rowCount) {
     return res.status(400).json({
-      msg: "InValid link",
+      message: "InValid/Expired link-1",
     });
   }
 
   const { id, user_id, expiry_time } = rows[0];
 
   if (new Date(expiry_time) < new Date()) {
+    await destroy_reset_password_token(id);
     return res.status(400).json({
-      msg: "InValid link",
+      message: "InValid/Expired link..",
     });
   }
 
@@ -265,6 +277,6 @@ export const ResetPassword: RequestHandler = async (req, res) => {
   await revoke_all_refresh_tokens(user_id);
 
   return res.json({
-    msg: "Password updated successfully",
+    message: "Password updated successfully",
   });
 };

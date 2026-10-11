@@ -11,6 +11,13 @@ Modules
     2. Frontend Integration of Authentication -> In Progress
         - Using redux toolkit for state management and rtk query for API triggering.
         
+        - Signup -> Completed
+        - Signin -> Completed
+        - Reset password -> Completed
+        - Forgot password -> Completed
+        - Refresh token -> Yet to pick
+        
+        
     3. Categories
         - Create
             - Single

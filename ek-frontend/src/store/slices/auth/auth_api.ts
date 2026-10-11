@@ -1,10 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { Login, SignupT, UserRes } from "../../../types/User";
+import type {
+  Login,
+  Reset_Password_Res,
+  ResetPassword_argsT,
+  SignupT,
+  UserRes,
+} from "../../../types/User";
 
 export const auth_api = createApi({
-  reducerPath: "api",
+  reducerPath: "auth",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
     login: builder.mutation<UserRes, Login>({
@@ -14,7 +20,29 @@ export const auth_api = createApi({
     signup: builder.mutation<UserRes, Omit<SignupT, "confirm_password">>({
       query: (body) => ({ url: "/user/signup", body, method: "POST" }),
     }),
+
+    forgot_password: builder.mutation({
+      query: (body) => ({
+        body,
+        url: "/user/forgot-password",
+        method: "POST",
+      }),
+    }),
+
+    reset_password: builder.mutation<Reset_Password_Res, ResetPassword_argsT>({
+      query: ({ password, token }) => ({
+        url: "/user/reset-password",
+        method: "post",
+        body: { password },
+        params: { token },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = auth_api;
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useForgot_passwordMutation,
+  useReset_passwordMutation,
+} = auth_api;

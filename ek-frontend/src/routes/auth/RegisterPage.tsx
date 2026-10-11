@@ -1,43 +1,36 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../../components/layout/AuthLayout";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { useAuth } from "../../store/AuthContext";
-import { useToast } from "../../store/ToastContext";
 import s from "../../components/layout/AuthLayout.module.css";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signup } from "./Schema";
 import type { SignupT } from "../../types/User";
 import { useSignupMutation } from "../../store/slices/auth/auth_api";
+import type { Logon_PageT } from "../../types/utils";
 
-/** Mirrors the register_schema already in ek-backend/src/schema/auth.ts. */
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
-  const { push } = useToast();
   const [Signup, { isLoading }] = useSignupMutation();
   const {
     control,
     handleSubmit,
     watch,
-    setError,
     formState: { errors },
   } = useForm<SignupT>({
     resolver: zodResolver(signup),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
+      first_name: "John",
+      last_name: "Doe",
+      email: "Johndoe@gmail.com",
+      password: "Vishwamitra",
+      confirm_password: "Vishwamitra",
       preferences: {},
     },
     mode: "onChange",
   });
-
-  const confirm_password_ref = useRef<HTMLInputElement>(null);
 
   const [agreed, setAgreed] = useState(false);
 
@@ -54,18 +47,18 @@ export function RegisterPage() {
 
   const submit = async (e: SignupT) => {
     const { confirm_password, ...rest } = e;
-    Signup(rest);
-  };
+    const { error } = await Signup(rest);
 
-  const handle_validate_password = () => {
-    const password = watch("password");
-    const value = confirm_password_ref.current?.value;
+    if (error) return;
 
-    if (password.trim() !== value?.trim()) {
-      setError("password", {
-        message: "Confirm password and password must be same",
-      });
-    }
+    navigate("/login", {
+      state: {
+        template: {
+          msg: "Signup successful, please login to continue",
+          type: "toast",
+        },
+      } as Logon_PageT,
+    });
   };
 
   return (

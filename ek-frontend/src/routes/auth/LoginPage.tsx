@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../../components/layout/AuthLayout";
 import { Button } from "../../components/ui/Button";
@@ -9,6 +9,8 @@ import s from "../../components/layout/AuthLayout.module.css";
 import { Controller, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useLoginMutation } from "../../store/slices/auth/auth_api";
+import { useRouterState } from "../../hooks/useRouterState";
+import { login_page_schema } from "../../types/utils";
 
 interface LoginForm {
   email: string;
@@ -16,12 +18,14 @@ interface LoginForm {
 }
 
 export function LoginPage() {
+  const state = useRouterState(login_page_schema);
+
   const navigate = useNavigate();
   const { push } = useToast();
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  const [signup, { isLoading }] = useLoginMutation();
+  const [signup, { isLoading, isError, isSuccess }] = useLoginMutation();
 
   const { control, handleSubmit } = useForm<LoginForm>({
     defaultValues: {
@@ -30,8 +34,18 @@ export function LoginPage() {
     },
   });
 
+  useEffect(() => {
+    if (state?.template.type === "toast") {
+      push(state?.template.msg);
+    }
+  }, [state?.template]);
+
   const submit = async (e: LoginForm) => {
-    signup(e);
+    await signup(e);
+    console.log({ isError, isSuccess });
+    if (isError) return;
+    push("User logged in successfully");
+    navigate("/");
   };
 
   return (
@@ -94,7 +108,7 @@ export function LoginPage() {
             />
             Show password
           </label>
-          <Link to="/support" className={s.link}>
+          <Link to="/forgot-password" className={s.link}>
             Forgot password?
           </Link>
         </div>
