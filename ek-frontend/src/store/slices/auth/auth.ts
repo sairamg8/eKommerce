@@ -10,11 +10,16 @@ interface InitialState {
   is_loading: boolean;
 }
 
-const initialState: InitialState = {
-  is_logged_in: false,
-  token: null,
-  refresh_token: null,
-  is_loading: false,
+const initialState = (): InitialState => {
+  const refresh_token = useLocalStorage.get("refresh_token") || null;
+  const token = useLocalStorage.get("token") || null;
+
+  return {
+    is_logged_in: false,
+    token,
+    refresh_token,
+    is_loading: false,
+  };
 };
 
 const auth_slice = createSlice({

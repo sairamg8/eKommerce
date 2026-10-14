@@ -37,6 +37,12 @@ export const auth_api = createApi({
         params: { token },
       }),
     }),
+
+    profile: builder.query({
+      query: () => ({
+        url: "/profile",
+      }),
+    }),
   }),
 });
 
@@ -45,4 +51,5 @@ export const {
   useSignupMutation,
   useForgot_passwordMutation,
   useReset_passwordMutation,
+  useProfileQuery,
 } = auth_api;

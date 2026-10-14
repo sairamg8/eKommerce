@@ -22,7 +22,6 @@ import {
   gen_token,
   hash_secret,
   hash_token,
-  verify_hash,
   verify_token,
 } from "@/utils";
 import { RequestHandler } from "express";
