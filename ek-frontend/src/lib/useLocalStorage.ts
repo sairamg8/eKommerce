@@ -9,7 +9,6 @@ export const useLocalStorage = {
   },
 
   insert: <T>(key: string, value: T): void => {
-    console.log(key, value, "For insertion");
     localStorage.setItem(key, JSON.stringify(value));
   },
 

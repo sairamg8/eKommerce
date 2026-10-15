@@ -34,7 +34,7 @@ export function Button({
       )}
       {...rest}
     >
-      {loading ? "Please wait..." : children}
+      {loading ? <span className={s.loader}></span> : children}
     </button>
   );
 }

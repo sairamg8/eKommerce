@@ -41,9 +41,8 @@ export function LoginPage() {
   }, [state?.template]);
 
   const submit = async (e: LoginForm) => {
-    await signup(e);
-    console.log({ isError, isSuccess });
-    if (isError) return;
+    const { error } = await signup(e);
+    if (error) return;
     push("User logged in successfully");
     navigate("/");
   };

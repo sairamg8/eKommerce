@@ -49,6 +49,9 @@
   gap: var(--sp-1);
   margin-left: auto;
 }
+.nav li {
+  list-style-type: none;
+}
 .navLink {
   display: flex;
   align-items: center;
@@ -62,6 +65,27 @@
 .navLink:hover {
   background: var(--surface-hover);
   color: var(--text-primary);
+}
+.user_options {
+  display: none;
+}
+
+.sub_menu {
+  position: relative;
+}
+
+.navLink:hover .user_options {
+  display: block;
+  position: absolute;
+  width: 14rem;
+  right: 0rem;
+  padding: 0.8rem;
+  background: #f1f4f8;
+  top: 2.5rem;
+}
+
+.navLink:hover .user_options li:hover {
+  color: var(--text-secondary);
 }
 .cartBtn {
   position: relative;
