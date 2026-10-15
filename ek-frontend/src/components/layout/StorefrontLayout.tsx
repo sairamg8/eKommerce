@@ -87,14 +87,14 @@ export function StorefrontLayout() {
                 <span className={s.navLabel}>
                   {is_logged_in ? first_name : "Sign in"}
                 </span>
-                {is_logged_in && (
-                  <ul className={s.user_options}>
-                    <li onClick={handleLogout}>
-                      {isLoading ? "Please wait..." : "Logout"}
-                    </li>
-                  </ul>
-                )}
               </NavLink>
+              {is_logged_in && (
+                <ul className={s.user_options}>
+                  <li onClick={handleLogout}>
+                    {isLoading ? "Please wait..." : "Logout"}
+                  </li>
+                </ul>
+              )}
             </li>
             <li>
               <NavLink

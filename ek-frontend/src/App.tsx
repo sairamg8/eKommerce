@@ -1,4 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./store/ThemeContext";
 import { ToastProvider } from "./store/ToastContext";
 import { AuthProvider } from "./store/AuthContext";
@@ -15,10 +14,8 @@ export default function App() {
         <ToastProvider>
           <AuthProvider>
             <CartProvider>
-              <BrowserRouter>
-                <AppRoutes />
-                <Toaster />
-              </BrowserRouter>
+              <AppRoutes />
+              <Toaster />
             </CartProvider>
           </AuthProvider>
         </ToastProvider>

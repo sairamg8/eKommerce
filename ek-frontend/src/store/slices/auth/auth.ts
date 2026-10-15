@@ -2,13 +2,14 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { auth_api } from "./auth_api";
 import type { UserRes } from "../../../types/User";
 import { useLocalStorage } from "../../../lib/useLocalStorage";
+import routes from "../../../routes/config";
 
 interface InitialState {
   is_logged_in: boolean;
   token: null | string;
   refresh_token: null | string;
   is_loading: boolean;
-  user_info: UserRes["user"] | null;
+  user_info: UserRes["user"];
 }
 
 const initialState = (): InitialState => {
@@ -22,7 +23,7 @@ const initialState = (): InitialState => {
     token,
     refresh_token,
     is_loading: false,
-    user_info: user_info,
+    user_info,
   };
 };
 
@@ -37,6 +38,8 @@ const auth_slice = createSlice({
       useLocalStorage.delete("user_info");
       useLocalStorage.delete("token");
       useLocalStorage.delete("refresh_token");
+
+      routes.navigate("/", { replace: true });
     },
     setCredentials: (state, action) => {
       state.is_logged_in = true;
