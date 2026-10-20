@@ -3,6 +3,8 @@ import Health from "./routes/health";
 import "./config";
 import { env } from "./config/env";
 import user_router from "./routes/user.router";
+import category from "./routes/category.router";
+import { global_error_handler } from "./middlewares/error_middleware";
 
 const server = e();
 server.use(e.json({}));
@@ -23,12 +25,15 @@ server.use((req, res, next) => {
 
 server.use("/health", Health);
 server.use("/user", user_router);
+server.use("/category", category);
 
 server.use((req, res) => {
   res.status(404).json({
     message: "The route your looking for doesn't exist",
   });
 });
+
+server.use(global_error_handler);
 
 server.listen(env.app_port, () =>
   console.log(`Server started on ${env.app_port}`),

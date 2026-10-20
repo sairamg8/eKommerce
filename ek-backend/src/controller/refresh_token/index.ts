@@ -9,11 +9,12 @@ import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 import { gen_token, hash_secret, verify_token } from "@/utils";
 
-export const create_or_update_refresh_token: RequestHandler = async (
-  req,
-  res,
-) => {
-  const { body } = req as Refresh_Token;
+export const create_or_update_refresh_token: RequestHandler<
+  {},
+  {},
+  Refresh_Token["body"]
+> = async (req, res) => {
+  const { body } = req;
   const { refresh_token } = body;
 
   const is_valid_token = verify_token<RefreshTokenPayload>(
@@ -23,7 +24,7 @@ export const create_or_update_refresh_token: RequestHandler = async (
 
   if (!is_valid_token.valid) {
     return res.status(401).json({
-      msg: "User token invalid/expired",
+      msg: "User token invalid/expired.",
     });
   }
 
@@ -33,7 +34,7 @@ export const create_or_update_refresh_token: RequestHandler = async (
 
   if (is_token_exist.rowCount === 0) {
     return res.status(401).json({
-      msg: "User token invalid/expired",
+      msg: "User token invalid/expired..",
     });
   }
 
@@ -43,7 +44,7 @@ export const create_or_update_refresh_token: RequestHandler = async (
 
   if (!compare) {
     return res.status(401).json({
-      msg: "User token invalid/expired",
+      msg: "User token invalid/expired...",
     });
   }
 

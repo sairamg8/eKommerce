@@ -37,7 +37,7 @@ export const gen_token = (payload: unknown, secret_type: SecretType) => {
   const secret = {
     access: {
       secret: env.access_secret,
-      expiresIn: "15min",
+      expiresIn: "1hr",
     },
     refresh: {
       secret: env.refresh_secret,
@@ -53,16 +53,19 @@ export const gen_token = (payload: unknown, secret_type: SecretType) => {
 export const construct_query_values = (
   data: Record<string, unknown>,
   create = true,
+  allowed_keys?: string[]
 ): Data => {
   const keys = [];
   const values = [];
   const placeholders = [];
 
-  for (const key in data) {
+  const target_keys = allowed_keys ?? Object.keys(data)
+
+  for (const key of target_keys) {
     if (data[key] !== undefined) {
       keys.push(key);
       const count = values.length + 1;
-      placeholders.push(create ? `$${count}` : `$${key} = $${count}`);
+      placeholders.push(create ? `$${count}` : `${key} = $${count}`);
       values.push(data[key]);
     }
   }
@@ -76,7 +79,7 @@ export const construct_query_values = (
 
 export const verify_token = <T>(
   token: string,
-  secret_type: SecretType,
+  secret_type?: SecretType,
 ): Verification_Token<T> => {
   try {
     const secret =

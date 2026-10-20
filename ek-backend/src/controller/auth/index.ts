@@ -125,18 +125,21 @@ export const Login: RequestHandler = async (req, res) => {
   });
 
   res.json({
-    user: rest,
+    user: {
+      id,
+      ...rest
+    },
     access_token,
     refresh_token,
   });
 };
 
-export const Logout: RequestHandler = async (req, res, next) => {
-  const { body } = req as Refresh_Token;
+export const Logout: RequestHandler<{}, {}, Refresh_Token["body"]> = async (req, res, next) => {
+  const { body } = req;
 
   const { refresh_token } = body;
 
-  const decode = verify_token<RefreshTokenPayload>(refresh_token, "refresh");
+  const decode = verify_token<RefreshTokenPayload>(refresh_token);
 
   if (!decode.valid) {
     return res.status(401).json({
@@ -165,6 +168,7 @@ export const Logout: RequestHandler = async (req, res, next) => {
   }
 
   if (token_info.revoked_at) {
+    await revoke_all_refresh_tokens(token_info.user_id)
     return res.status(401).json({
       message: "Token reuse detected",
     });
@@ -194,7 +198,7 @@ export const ForgotPassword: RequestHandler = async (req, res) => {
 
   if (rowCount === 0) {
     return res.status(200).json({
-      message: "A reset password link will be shared if user email exists.",
+      message: "A reset password link will be shared if user email exists...",
     });
   }
 
@@ -223,7 +227,7 @@ export const ForgotPassword: RequestHandler = async (req, res) => {
     user_id: id,
   });
 
-  await trigger_email({
+  const status = await trigger_email({
     body: password_reset({
       link: `http://localhost:5173/user/password-reset?token=${part_1_token}_${part_2_token}`,
     }),
