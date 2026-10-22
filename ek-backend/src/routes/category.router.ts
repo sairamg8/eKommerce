@@ -1,7 +1,7 @@
 import {
   add_category,
   get_all_categories,
-  get_category,
+  get_category_by_slug,
   get_category_by_id,
   modify_category,
   remove_category,
@@ -30,7 +30,7 @@ category.get(
   "/slug/:name",
   auth_middleware,
   req_validate(read_category),
-  get_category,
+  get_category_by_slug,
 );
 category.post(
   "/",
@@ -39,13 +39,13 @@ category.post(
   add_category,
 );
 category.patch(
-  "/",
+  "/:id",
   auth_middleware,
   req_validate(update_category),
   modify_category,
 );
 category.delete(
-  "/",
+  "/:id",
   auth_middleware,
   req_validate(delete_category),
   remove_category,

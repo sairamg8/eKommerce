@@ -7,7 +7,7 @@ import {
   update_category,
 } from "@/repositories/categories";
 import {
-  CategoryT,
+  Create_CategoryT,
   Delete_CategoryT,
   Read_Category_By_IDT,
   Read_CategoryT,
@@ -27,7 +27,7 @@ export const get_category_by_id: RequestHandler<
   const { params } = req;
   const { id } = params;
 
-  const result = await read_category_by_id(id);
+  const result = await read_category_by_id(id, req.user.id);
 
   if (result.rowCount === 0) {
     return res.status(404).json({
@@ -37,15 +37,12 @@ export const get_category_by_id: RequestHandler<
   return res.json(result);
 };
 
-export const get_category: RequestHandler<Read_CategoryT["params"]> = async (
-  req,
-  res,
-  next,
-) => {
+export const get_category_by_slug: RequestHandler<
+  Read_CategoryT["params"]
+> = async (req, res, next) => {
   const { params } = req;
   const { name } = params;
 
-  console.log({ name });
   const result = await read_category(name);
 
   if (result.rowCount === 0) {
@@ -56,19 +53,14 @@ export const get_category: RequestHandler<Read_CategoryT["params"]> = async (
   return res.json(result);
 };
 
-export const add_category: RequestHandler<{}, {}, CategoryT["body"]> = async (
-  req,
-  res,
-  next,
-) => {
+export const add_category: RequestHandler<
+  {},
+  {},
+  Create_CategoryT["body"]
+> = async (req, res) => {
   const { body } = req;
 
-  const payload = {
-    ...body,
-    id: req.user.id,
-  };
-
-  const result = await create_category(payload);
+  const result = await create_category(body, req.user.id);
 
   return res.json({
     message: "Category inserted successfully",
@@ -77,21 +69,28 @@ export const add_category: RequestHandler<{}, {}, CategoryT["body"]> = async (
 };
 
 export const modify_category: RequestHandler<
-  {},
+  Update_CategoryT["params"],
   {},
   Update_CategoryT["body"]
 > = async (req, res) => {
+  const { params } = req;
   const { body } = req;
 
-  const is_category_exist = await read_category_by_id(body.id);
+  const is_category_exist = await read_category_by_id(params.id, req.user.id);
+
+  if (Object.keys(body).length === 0) {
+    return res.status(400).json({
+      message: "At least a field required to update the data",
+    });
+  }
 
   if (is_category_exist.rowCount === 0) {
-    return res.status(401).json({
+    return res.status(404).json({
       message: "Category your looking for not available",
     });
   }
 
-  const result = await update_category(body);
+  const result = await update_category(body, req.user.id, params.id);
 
   return res.json({
     message: "Category updated",
@@ -100,14 +99,12 @@ export const modify_category: RequestHandler<
 };
 
 export const remove_category: RequestHandler<
-  {},
-  {},
-  Delete_CategoryT["body"]
+  Delete_CategoryT["params"]
 > = async (req, res) => {
-  const { body } = req;
-  const { id } = body;
+  const { params } = req;
+  const { id } = params;
 
-  const is_category_exist = await delete_category(id);
+  const is_category_exist = await delete_category(id, req.user.id);
 
   if (is_category_exist.rowCount === 0) {
     return res.status(404).json({
