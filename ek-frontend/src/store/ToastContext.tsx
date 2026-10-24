@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import type { ReactNode } from "react";
 
 export type ToastTone = "success" | "error" | "info";
@@ -9,6 +16,13 @@ type ToastValue = {
   push: (message: string, tone?: ToastTone) => void;
   dismiss: (id: number) => void;
 };
+
+let external_trigger: ((message: string, tone?: ToastTone) => void) | null =
+  null;
+
+export function trigger_toast(message: string, tone?: ToastTone) {
+  external_trigger?.(message, tone);
+}
 
 const ToastContext = createContext<ToastValue | null>(null);
 let nextId = 1;
@@ -26,8 +40,22 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000);
   }, []);
 
-  const value = useMemo(() => ({ toasts, push, dismiss }), [toasts, push, dismiss]);
-  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
+  useEffect(() => {
+    external_trigger = push;
+
+    return () => {
+      external_trigger = null;
+    };
+  }, [push]);
+
+  const value = useMemo(
+    () => ({ toasts, push, dismiss }),
+    [toasts, push, dismiss],
+  );
+
+  return (
+    <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
+  );
 }
 
 export function useToast() {

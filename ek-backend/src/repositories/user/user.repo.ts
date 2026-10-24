@@ -11,6 +11,15 @@ const allowed_columns = new Set<keyof NewUser>([
   "preferences",
 ]);
 
+const get_user_by_email = async (email: string) => {
+  const sql = `select exists (
+  select 1 from app.users where lower(email) = lower($1)) as "exists"`;
+
+  const result = await query<{ exists: boolean }>(sql, [email]);
+
+  return result.rows[0]?.exists;
+};
+
 const create_user = async (data: Partial<UserRes>) => {
   const valid_entries = Object.entries(data).filter(
     ([key, value]) =>
@@ -68,4 +77,4 @@ const update_user = async (data: Partial<UserRes>, id: string) => {
   return sql;
 };
 
-export { create_user, get_user, update_user };
+export { create_user, get_user, update_user, get_user_by_email };

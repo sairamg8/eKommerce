@@ -1,5 +1,6 @@
 create schema if not exists app;
 create extension if not exists pgcrypto;
+create type app.user_role as ENUM('customer', 'merchant', 'admin');
 
 
 create table if not exists app.users (
@@ -8,6 +9,7 @@ create table if not exists app.users (
     last_name text not null,
     email text not null,
     password_hash text not null,
+    user_role app.user_role not null default 'customer',
     preferences jsonb default '{}'::jsonb,
     created_at timestamptz not null default now(),
     updated_at timestamptz,

@@ -5,15 +5,16 @@ import {
   useSelector,
   type TypedUseSelectorHook,
 } from "react-redux";
-import { auth_api } from "./slices/auth/auth_api";
+import rtk_error_middleware from "./middleware";
+import { api } from "./api";
 
 const store = configureStore({
   reducer: {
-    auth: auth_reducer,
-    [auth_api.reducerPath]: auth_api.reducer,
+    authSlice: auth_reducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(auth_api.middleware);
+    return getDefaultMiddleware().concat(rtk_error_middleware, api.middleware);
   },
 });
 
